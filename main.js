@@ -33,15 +33,15 @@
             // Object: Gold Icosahedron
             const geometry = new THREE.IcosahedronGeometry(3.5, 1);
             const material = new THREE.MeshBasicMaterial({
-                color: 0xC5A059,
+                color: 0x48245D,
                 wireframe: true,
                 transparent: true,
-                opacity: 0.2
+                opacity: 0.9
             });
             const sphere = new THREE.Mesh(geometry, material);
             scene.add(sphere);
             
-            sphere.position.x = 2.5;
+            sphere.position.x = 2;
             
             function animate() {
                 requestAnimationFrame(animate);
