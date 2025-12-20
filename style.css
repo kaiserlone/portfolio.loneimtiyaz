@@ -129,7 +129,7 @@
             width: 100%;
             box-sizing: border-box;
             z-index: 1000;
-            background: #A0A0A833;
+            background: rgba(160, 160, 168, 0.2);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -378,7 +378,7 @@
             font-size: 0.8rem;
         }
         
-        @media (max-width: 900px) {
+        @media (max-width: 768px) {
             .hero-grid {
                 grid-template-columns: 1fr;
                 text-align: center;
@@ -415,13 +415,8 @@
             
             nav {
                 height: 60px;
-                backdrop-filter: blur(5px);
-                -webkit-backdrop-filter: blur(5px);
-            }
-            
-            .menu {
-                display: none;
-                
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
             }
             
             .timeline-graphic {
@@ -429,7 +424,7 @@
                 height: 100%;
                 width: 100%;
             }
-   
+            
             .showmenu i {
                 display: block;
                 color: #fff;
@@ -440,3 +435,52 @@
                 grid-template-columns: 90px 1fr;
             }
         }
+        /* Ensure this is inside your mobile media query (e.g., max-width: 768px) */
+@media screen and (max-width: 768px) {
+    
+      .menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        z-index: 9999; 
+        background: rgba(0, 0, 0, 0.6) ; 
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 0.4s ease-in-out;
+      mix-blend-mode: difference;
+      }
+
+    /* This class is added by the JavaScript when clicked */
+    .menu.active {
+        max-height: 500px; /* Large enough value to fit all links */
+        opacity: 09;
+        padding: 20px 0; /* Add some spacing when open */
+    }
+
+    /* Style the links for mobile */
+    .menu a {
+        display: block;
+        margin: 10px 0;
+        width: 100%;
+        text-align: center;
+        color: #FFFFFF;
+        backdrop-filter: blur(px);
+        
+    }
+            .cursor-dot,
+        .cursor-outline {
+            display: none;
+        }
+    /* Ensure the icon is visible */
+    .showmenu {
+        display: block;
+        cursor: pointer;
+    }
+}
