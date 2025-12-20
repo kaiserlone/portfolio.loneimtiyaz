@@ -23,6 +23,66 @@
         
     }
     
+    /* 1. The Container - Holds everything on top of the site */
+    .intro-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        /* Places left and right doors side-by-side */
+        flex-direction: column;
+        z-index: 9999;
+        /* Must be higher than your navbar */
+        pointer-events: none;
+        /* Allows you to click the site after animation ends */
+    }
+    
+    /* 2. Common styles for both doors */
+    .door {
+        width: 100%;
+        /* Each takes half screen */
+        height: 50%;
+        background: #000;
+        /* Color of the doors */
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* Fades out before doors open */
+    
+    /* 4. The Animations */
+    
+    /* upper door slides up */
+    .upper-door {
+        animation: slideUp 1.5s cubic-bezier(0.77, 0, 0.175, 1) .5s forwards;
+    }
+    
+    /* lower door slides down */
+    .lower-door {
+        animation: slideDown 1.5s cubic-bezier(0.77, 0, 0.175, 1) .5s forwards;
+    }
+    
+    /* Keyframes */
+    @keyframes slideUp {
+        to {
+            transform: translateY(-100%);
+        }
+    }
+    
+    @keyframes slideDown {
+        to {
+            transform: translateY(100%);
+        }
+    }
+    @keyframes appear{
+        from{
+            opacity: 0;
+        }
+        to{opacity: 1;}
+    }
+    
     .reveal {
         font-family: "Caveat", cursive;
     }
@@ -38,8 +98,13 @@
         z-index: 9999;
         backdrop-filter: blur(0.1px);
         pointer-events: none;
+        opacity:1;
     }
-    
+    .cursir{
+        animation: appear 1.5s;
+        transition: 0.1s ease-in;
+        
+    }
     .cursor-dot {
         width: 8px;
         height: 8px;

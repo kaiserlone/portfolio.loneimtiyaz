@@ -1,25 +1,59 @@
         gsap.registerPlugin(ScrollTrigger);
+        // --- 1. ADVANCED CURSOR WITH VELOCITY BULGE ---
+const cursorDot = document.querySelector('.cursor-dot');
+const cursorOutline = document.querySelector('.cursor-outline');
+
+// 1. Variables to track positions
+let mouse = { x: 0, y: 0 }; // Actual mouse position
+let outline = { x: 0, y: 0 }; // Lagging outline position
+
+// 2. Track Mouse Movement
+window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    
+    // Dot follows instantly
+    cursorDot.style.transform = `translate(${mouse.x}px, ${mouse.y}px) translate(-50%, -50%)`;
+});
+
+// 3. Animation Loop (Runs 60fps)
+const animateCursor = () => {
+    // Calculate distance between mouse and outline (The "Lag")
+    let distX = mouse.x - outline.x;
+    let distY = mouse.y - outline.y;
+
+    // Move outline towards mouse (0.1 = 10% of the distance per frame)
+    // Adjust 0.1 to make it faster (0.2) or slower (0.05)
+    outline.x += distX * 0.2;
+    outline.y += distY * 0.2;
+
+    // --- BULGE CALCULATION ---
+    // Get total velocity (hypotenuse of x/y distance)
+    const velocity = Math.sqrt(distX**2 + distY**2);
+    
+    // Base scale is 1. We add a fraction of the velocity.
+    // 0.005 controls sensitivity. Lower = less bulge, Higher = more bulge.
+    let scale = 0.8 + (velocity * 0.006);
+    
+    // Clamp the scale so it doesn't get too huge (max 1.5x size)
+    scale = Math.min(scale, 5);
+
+    // Apply position AND scale
+    // We use two translates: one for position, one to keep it centered (-50%)
+    cursorOutline.style.transform = `
+        translate(${outline.x}px, ${outline.y}px) 
+        translate(-50%, -50%) 
+        scale(${scale})
+    `;
+
+    requestAnimationFrame(animateCursor);
+};
+
+// Start the loop
+animateCursor();
+
         
-        // --- 1. CURSOR SCRIPT (The Invert Effect) ---
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
-        
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-            
-            // Dot follows instantly
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            
-            // Outline follows with slight delay (GSAP for smoothness)
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
-        });
-        
-        // --- 2. THREE.JS (Gold Wireframe) ---
+        // // --- 2. THREE.JS (Gold Wireframe) ---
         const initThreeJS = () => {
             const container = document.getElementById('canvas-container');
             const scene = new THREE.Scene();
