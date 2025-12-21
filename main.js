@@ -58,8 +58,9 @@ animateCursor();
             const container = document.getElementById('canvas-container');
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 4;
-            
+            camera.position.z = 4;           
+            camera.rotation.y = -1.5
+
             const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             container.appendChild(renderer.domElement);
@@ -71,7 +72,8 @@ animateCursor();
                 wireframeLinewidth: 99,
                 color: 0xA48940,
                 transparent: true,
-                opacity: 0.9,
+                opacity: 1,
+                
             });
             const sphere = new THREE.Mesh(geometry, material);
             scene.add(sphere);
